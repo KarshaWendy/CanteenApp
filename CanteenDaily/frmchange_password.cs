@@ -30,7 +30,7 @@ namespace CanteenDaily
             else
             {
 
-                string updt_comm = "update ta_users set password='" + ParametersGlobal.EncryptString(txt_pass_change_confirmpass.Text, "funguo") + "' where username_id=" + globalparams.user_id;
+                string updt_comm = "update ta_users set password='" + ParametersGlobal.EncryptString(txt_pass_change_confirmpass.Text, "funguo") + "' where username_id=" + Globalparams.user_id;
                 
                 DataBaseOperations.ExecuteComm_My(updt_comm);
 
@@ -43,7 +43,7 @@ namespace CanteenDaily
 
         private void txt_pass_change_oldpass_Leave(object sender, EventArgs e)
         {
-            if (ParametersGlobal.EncryptString(txt_pass_change_oldpass.Text, "funguo") != globalparams.hold_p)
+            if (ParametersGlobal.EncryptString(txt_pass_change_oldpass.Text, "funguo") != Globalparams.hold_p)
             {
                 MessageBox.Show("The old Password Does not match your password!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txt_pass_change_oldpass.Focus();

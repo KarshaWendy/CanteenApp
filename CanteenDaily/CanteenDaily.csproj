@@ -18,7 +18,7 @@
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <ApplicationIcon>iconsnbl.ico</ApplicationIcon>
     <StartupObject>
     </StartupObject>
@@ -71,21 +71,44 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>..\..\..\..\..\..\..\gk\dlls\EPPlus.dll</HintPath>
+      <HintPath>..\..\..\Chevy\projects\Projects\dlls\EPPlus 4.1\DotNet4\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Vbe.Interop, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SMART\AbacusSIWINSTALLER\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Office, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Softwares\Development\DataGridViewExtension\v1.1.1\PIAs\Office.dll</HintPath>
     </Reference>
     <Reference Include="OTI.SmartLink.RETMsgMaker">
-      <HintPath>..\..\..\..\..\..\..\gk\dlls\OTI.SmartLink.RETMsgMaker.dll</HintPath>
+      <HintPath>..\..\..\Chevy\projects\Projects\dlls\OTI Ret Maker version 35\OTI.SmartLink.RETMsgMaker.dll</HintPath>
     </Reference>
-    <Reference Include="SMART.DATA.V1">
-      <HintPath>..\..\..\..\..\..\..\gk\dlls\SMART.DATA.V1.dll</HintPath>
+    <Reference Include="SMART.DATA.V1, Version=3.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Chevy\projects\Projects\In Dev\Project SMART\SMART.DATA\SMART.DATA.V1\bin\Release\SMART.DATA.V1.dll</HintPath>
     </Reference>
     <Reference Include="Smart.Data.Xml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -157,12 +180,19 @@
     <Compile Include="frmSearch.Designer.cs">
       <DependentUpon>frmSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_display.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_display.Designer.cs">
+      <DependentUpon>frm_display.cs</DependentUpon>
+    </Compile>
     <Compile Include="frm_Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frm_Main.designer.cs">
       <DependentUpon>frm_Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="globalparams.cs" />
     <Compile Include="operations_class.cs" />
     <Compile Include="ParametersGlobal.cs" />
     <Compile Include="PriceList.cs" />
@@ -196,6 +226,9 @@
     <EmbeddedResource Include="frmSearch.resx">
       <DependentUpon>frmSearch.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_display.resx">
+      <DependentUpon>frm_display.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Main.resx">
       <DependentUpon>frm_Main.cs</DependentUpon>

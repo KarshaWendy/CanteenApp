@@ -45,7 +45,7 @@ namespace CanteenDaily
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            globalparams._applicationState = 1;
+            Globalparams._applicationState = 1;
             DialogResult result = MessageBox.Show("Are you sure you want to close?", "Please Verify", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.No)
@@ -69,7 +69,7 @@ namespace CanteenDaily
                 int.TryParse(configs_ds.Tables[0].Rows[0]["readerBaud"].ToString(), out baudRate);
                 CardDatabase = configs_ds.Tables[0].Rows[0]["db"].ToString();
 
-                if (globalparams.log_state == 1)
+                if (Globalparams.log_state == 1)
                 {
                     menuStrip1.Enabled = true;
                     groupBox1.Visible = true;

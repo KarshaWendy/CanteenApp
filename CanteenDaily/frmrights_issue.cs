@@ -43,7 +43,7 @@ namespace CanteenDaily
             {
                 string inst_col_vals = "insert into ta_users(Real_Names,user_name,Password,fk_userg_id,username_id,user_state) values";
                 string inst_vals = "('" + txt_user_rname.Text + "','" + txt_username.Text + "','" + ParametersGlobal.EncryptString("password", "funguo") + "' ,(select Group_Id from ta_user_group where Group_Desc='" + cbo_user_group.Text + "'),"
-                    + globalparams.newuserid + ",(select State from ta_states where Description ='" + cbo_user_state.Text + "'))";
+                    + Globalparams.newuserid + ",(select State from ta_states where Description ='" + cbo_user_state.Text + "'))";
                 
                 DataBaseOperations.ExecuteComm_My(inst_col_vals + inst_vals);
                 
@@ -285,7 +285,7 @@ namespace CanteenDaily
             }
             if (txt_user_g_name.Text != "")
             {
-                string inst_vals = "Insert into ta_user_group(Group_Desc,Group_Id) values('" + txt_user_g_name.Text + "'," + globalparams.newusergroup_id + ")";
+                string inst_vals = "Insert into ta_user_group(Group_Desc,Group_Id) values('" + txt_user_g_name.Text + "'," + Globalparams.newusergroup_id + ")";
                 
                 DataBaseOperations.ExecuteComm_My(inst_vals);
 

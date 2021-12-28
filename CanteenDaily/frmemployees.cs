@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Smart.Data.Xml;
+//using Smart.Data.Xml;
 using SmartCanteen;
 using System.IO;
 using CanteenDaily;
@@ -38,8 +38,10 @@ namespace CanteenDaily
                 ds.Tables.Add(dt);
 
                 dgview.DataSource = ds.Tables[0].DefaultView;
-                dgview.Columns["Staff_Name"].HeaderText = "Employee Name";
-                dgview.Columns["staffnumber"].HeaderText = "Employee Number";
+                //dgview.Columns["Staff_Name"].HeaderText = "Employee Name";
+                //dgview.Columns["staffnumber"].HeaderText = "Employee Number";
+                dgview.Columns["Staff_Name"].HeaderText = "Student Name";
+                dgview.Columns["staffnumber"].HeaderText = "Student Number";
                 dgview.Columns["serialnumber"].HeaderText = "Card serial Number";
                 dgview.Columns["department"].HeaderText = "Department";
             }
@@ -76,7 +78,7 @@ namespace CanteenDaily
                 string memname = row.Cells["staff_name"].Value.ToString();
                 string serial = row.Cells["serialnumber"].Value.ToString();
                 string depart = row.Cells["department"].Value.ToString();
-                string user_name = globalparams.user_name;
+                //string user_name = globalparams.user_name;
 
                 if (MessageBox.Show("Are you sure you want to deactivate card number " + staffnumber + "  belonging to \n " + memname + " ", "Card Deactivation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -133,7 +135,9 @@ namespace CanteenDaily
                 List<field> fields = new List<field>();
                 //List<
                 field f = new field();
-                f.FrielndlyName = "Staff Number";
+                //f.FrielndlyName = "Staff Number";
+                //f.Field = "staffnumber";
+                f.FrielndlyName = "Student Number";
                 f.Field = "staffnumber";
                 fields.Add(f);
 
@@ -143,7 +147,9 @@ namespace CanteenDaily
                 fields.Add(f);
 
                 f = new field();
-                f.FrielndlyName = "Staff Name";
+                //f.FrielndlyName = "Staff Name";
+                //f.Field = "Staff_Name";
+                f.FrielndlyName = "Student Name";
                 f.Field = "Staff_Name";
                 fields.Add(f);
 

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OfficeOpenXml;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
 using SMART.DATA.V1;
+using OfficeOpenXml;
 
 namespace CanteenDaily
 {
@@ -267,6 +267,54 @@ namespace CanteenDaily
                 return false;
             }
         }
-        
+                
+        public static int Dbport;
+        public static short portNumber;
+        public static int baudRate;
+        public static string CardDatabase;
+        public static string UserName;
+
+        public static bool LoadParameters()
+        {
+            try
+            {
+                string FilePath = Application.StartupPath + "\\Application\\smisconfigSmart.xml";
+
+                if (File.Exists(FilePath))
+                {
+                    DataSet configs_ds = new DataSet();
+                    configs_ds.ReadXml(FilePath);
+
+                    string HostServer = configs_ds.Tables[0].Rows[0]["Server"].ToString();
+                    int.TryParse(configs_ds.Tables[0].Rows[0]["port"].ToString(), out Dbport);
+                    short.TryParse(configs_ds.Tables[0].Rows[0]["readerPort"].ToString(), out portNumber);
+                    int.TryParse(configs_ds.Tables[0].Rows[0]["readerBaud"].ToString(), out baudRate);
+                    CardDatabase = configs_ds.Tables[0].Rows[0]["db"].ToString();
+
+                    //loaddetails();
+
+                    GlobalValues._MySqlConnection = "server=" + HostServer + ";user id=root; password=smart123; database=smartcafet; port=" + Dbport + ";"; ;
+
+                    if (DataBaseOperations.CanConnect_My())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Configuration Load Error.\r\nConfiguration file missing", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
     }
 }

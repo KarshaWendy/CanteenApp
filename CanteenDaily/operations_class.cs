@@ -19,7 +19,7 @@ namespace CanteenDaily
         {
             StreamWriter sw = File.AppendText(Application.StartupPath + path);
             sw.WriteLine("=================================");
-            sw.WriteLine(DateTime.Now.ToString("MM-dd-yyyy hh:mm ss tt") + " User Name :=" + globalparams.user_name);
+            sw.WriteLine(DateTime.Now.ToString("MM-dd-yyyy hh:mm ss tt"));
             sw.WriteLine("=================================");
             sw.WriteLine(wrt);
             sw.WriteLine("=================================");

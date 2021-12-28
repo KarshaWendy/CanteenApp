@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1738
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanteenDaily", "CanteenDaily\CanteenDaily.csproj", "{1F66D081-CADE-4D79-BB64-C309C6889626}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Canteen Installer", "Canteen Installer\Canteen Installer.vdproj", "{8B4F4A4D-A7D9-41E8-8158-E2B6B4D591CC}"
@@ -17,9 +19,10 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|x86.ActiveCfg = Debug|x86
+		{1F66D081-CADE-4D79-BB64-C309C6889626}.Debug|x86.Build.0 = Debug|x86
 		{1F66D081-CADE-4D79-BB64-C309C6889626}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F66D081-CADE-4D79-BB64-C309C6889626}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F66D081-CADE-4D79-BB64-C309C6889626}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -38,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF06512E-F956-488D-A34C-FDAC2E48CAE9}
 	EndGlobalSection
 EndGlobal

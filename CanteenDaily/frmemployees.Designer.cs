@@ -90,7 +90,7 @@
             this.Controls.Add(this.dgview);
             this.Name = "frmemployees";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Employees Roster";
+            this.Text = "Student Roster";
             ((System.ComponentModel.ISupportInitialize)(this.dgview)).EndInit();
             this.cms_menu.ResumeLayout(false);
             this.ResumeLayout(false);

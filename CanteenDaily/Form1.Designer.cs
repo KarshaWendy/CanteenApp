@@ -85,6 +85,8 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.bg_dowork = new System.ComponentModel.BackgroundWorker();
+            this.cmd_startRun = new System.Windows.Forms.Button();
+            this.cmd_teaRun = new System.Windows.Forms.Button();
             this.mnuCanteen.SuspendLayout();
             this.grplogger.SuspendLayout();
             this.Panellogin.SuspendLayout();
@@ -175,7 +177,7 @@
             // issueCardsToolStripMenuItem
             // 
             this.issueCardsToolStripMenuItem.Name = "issueCardsToolStripMenuItem";
-            this.issueCardsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.issueCardsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.issueCardsToolStripMenuItem.Text = "&Issue cards";
             this.issueCardsToolStripMenuItem.Click += new System.EventHandler(this.issueCardsToolStripMenuItem_Click);
             // 
@@ -183,36 +185,36 @@
             // 
             this.issueMealCardsToolStripMenuItem.Name = "issueMealCardsToolStripMenuItem";
             this.issueMealCardsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.issueMealCardsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.issueMealCardsToolStripMenuItem.Text = "Issue &Meal  Voucher";
+            this.issueMealCardsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.issueMealCardsToolStripMenuItem.Text = "Issue &Meal Voucher";
             this.issueMealCardsToolStripMenuItem.Click += new System.EventHandler(this.issueMealCardsToolStripMenuItem_Click);
             // 
             // issueTeaToolStripMenuItem
             // 
             this.issueTeaToolStripMenuItem.Name = "issueTeaToolStripMenuItem";
             this.issueTeaToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.issueTeaToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.issueTeaToolStripMenuItem.Text = "Issue &Tea    Voucher";
+            this.issueTeaToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.issueTeaToolStripMenuItem.Text = "Issue &Tea Voucher";
             this.issueTeaToolStripMenuItem.Click += new System.EventHandler(this.issueTeaToolStripMenuItem_Click);
             // 
             // deactivateCardsToolStripMenuItem
             // 
             this.deactivateCardsToolStripMenuItem.Name = "deactivateCardsToolStripMenuItem";
-            this.deactivateCardsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.deactivateCardsToolStripMenuItem.Text = "&Staff Management";
+            this.deactivateCardsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.deactivateCardsToolStripMenuItem.Text = "&Student Management";
             this.deactivateCardsToolStripMenuItem.Click += new System.EventHandler(this.deactivateCardsToolStripMenuItem_Click);
             // 
             // maintananceToolStripMenuItem
             // 
             this.maintananceToolStripMenuItem.Name = "maintananceToolStripMenuItem";
-            this.maintananceToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.maintananceToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.maintananceToolStripMenuItem.Text = "Mainta&nance";
             this.maintananceToolStripMenuItem.Click += new System.EventHandler(this.maintananceToolStripMenuItem_Click);
             // 
             // mealVoucherToolStripMenuItem
             // 
             this.mealVoucherToolStripMenuItem.Name = "mealVoucherToolStripMenuItem";
-            this.mealVoucherToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.mealVoucherToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.mealVoucherToolStripMenuItem.Text = "Meal Voucher";
             this.mealVoucherToolStripMenuItem.Visible = false;
             this.mealVoucherToolStripMenuItem.Click += new System.EventHandler(this.mealVoucherToolStripMenuItem_Click);
@@ -376,7 +378,7 @@
             this.grpBoxreports.Enabled = false;
             this.grpBoxreports.Location = new System.Drawing.Point(0, 27);
             this.grpBoxreports.Name = "grpBoxreports";
-            this.grpBoxreports.Size = new System.Drawing.Size(485, 358);
+            this.grpBoxreports.Size = new System.Drawing.Size(310, 358);
             this.grpBoxreports.TabIndex = 4;
             this.grpBoxreports.TabStop = false;
             this.grpBoxreports.Visible = false;
@@ -509,9 +511,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(13, 46);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 13);
+            this.label9.Size = new System.Drawing.Size(84, 13);
             this.label9.TabIndex = 5;
-            this.label9.Text = "Staff Number";
+            this.label9.Text = "Student Number";
             // 
             // label8
             // 
@@ -602,11 +604,35 @@
             this.bg_dowork.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bg_dowork_DoWork);
             this.bg_dowork.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bg_dowork_RunWorkerCompleted);
             // 
+            // cmd_startRun
+            // 
+            this.cmd_startRun.Location = new System.Drawing.Point(317, 41);
+            this.cmd_startRun.Name = "cmd_startRun";
+            this.cmd_startRun.Size = new System.Drawing.Size(105, 25);
+            this.cmd_startRun.TabIndex = 10;
+            this.cmd_startRun.Text = "Start Food Run";
+            this.cmd_startRun.UseVisualStyleBackColor = true;
+            this.cmd_startRun.Visible = false;
+            this.cmd_startRun.Click += new System.EventHandler(this.cmd_startRun_Click);
+            // 
+            // cmd_teaRun
+            // 
+            this.cmd_teaRun.Location = new System.Drawing.Point(317, 114);
+            this.cmd_teaRun.Name = "cmd_teaRun";
+            this.cmd_teaRun.Size = new System.Drawing.Size(105, 28);
+            this.cmd_teaRun.TabIndex = 11;
+            this.cmd_teaRun.Text = "Start Tea Run";
+            this.cmd_teaRun.UseVisualStyleBackColor = true;
+            this.cmd_teaRun.Visible = false;
+            this.cmd_teaRun.Click += new System.EventHandler(this.cmd_teaRun_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 422);
+            this.Controls.Add(this.cmd_teaRun);
+            this.Controls.Add(this.cmd_startRun);
             this.Controls.Add(this.StatusCanteen);
             this.Controls.Add(this.grpIssuer);
             this.Controls.Add(this.grplogger);
@@ -692,7 +718,8 @@
         private System.Windows.Forms.ToolStripMenuItem changToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bg_dowork;
         private System.Windows.Forms.ToolStripMenuItem mealVoucherToolStripMenuItem;
-
+        private System.Windows.Forms.Button cmd_startRun;
+        private System.Windows.Forms.Button cmd_teaRun;
     }
 }
 

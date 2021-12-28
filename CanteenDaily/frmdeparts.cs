@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Smart.Data.Xml;
+//using Smart.Data.Xml;
 using SmartCanteen;
 using System.IO;
 using CanteenDaily;
@@ -87,7 +87,7 @@ namespace CanteenDaily
                     string mesg = "The costings for card belonging to Staff number " + receive_name + " \n has been changed from " + receive_dept + " to " + cbodepart.Text + " \n as from the " + dtst.Value.ToString("yyyy-MM-dd");
 
                     //write a log of the change of department.
-                    writetxt.andikatxt(mesg, "\\logging.txt");                    
+                    //writetxt.andikatxt(mesg, "\\logging.txt");                    
                     MessageBox.Show(mesg);
                 }
             }

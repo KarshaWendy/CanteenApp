@@ -24,10 +24,10 @@ namespace SmartCanteen
         DateTime startDate = DateTime.Now;
         public string totalsums,sum,gsum;
         public int total,col_location;
-        
+        string groupingName = string.Empty;
+
         private System.Data.DataTable feeds()
-        {
-            string query = " distinct department,sum(amount),time ";
+        {            
             string cons = " time >= '" + startdate.Value.Date.ToString("yyyy-MM-dd") + " 00:00:00" + "'" + " and time <=' " + enddate.Value.Date.ToString("yyyy-MM-dd") + " 23:59:00" + "'";
             string grp = " group by department";
             string cond = "";
@@ -93,34 +93,39 @@ namespace SmartCanteen
                 dcnew.AutoIncrementStep = 1;
                 dt.Columns.Add(dcnew);
 
+                string query = "  ";
+
                 if (chk_groupReport.Checked)
                 {
-                    string query1 = "select " + query + " from smartcafet.dailyfeeds where " + cond + grp;
-                   
-                    dt = DataBaseOperations.ExecuteDataTable_My(query1);
+                    query = "select distinct department, sum(amount), time from smartcafet.dailyfeeds where " + cond + grp;
                 }
-                if (!chk_groupReport.Checked)
+                else
                 {
-                    string qy = "select date(time) as 'Date',time(time) as 'Time',staffnumber as 'Staff Number',UCASE(card_name) as 'Staff Name',UCASE(Department) as Department,"
-                        + " usage_instance as 'Meal Time',meal_type as 'Meal Type', serialnumber, Amount from smartcafet.dailyfeeds where " + cond;
+                    //query = "select date(time) as 'Date',time(time) as 'Time',staffnumber as 'Staff Number',UCASE(card_name) as 'Staff Name',UCASE(Department) as Department,"
+                    //    + " usage_instance as 'Meal Time',meal_type as 'Meal Type', serialnumber, Amount from smartcafet.dailyfeeds where " + cond;
 
-                    dt = DataBaseOperations.ExecuteDataTable_My(qy);
+                    query = "select date(time) as 'Date',time(time) as 'Time',staffnumber as 'Student Number',UCASE(card_name) as 'Student Name',UCASE(Department) as Department,"
+                       + " usage_instance as 'Meal Time',meal_type as 'Meal Type', serialnumber, Amount from smartcafet.dailyfeeds where " + cond;
                 }
 
+                dt = DataBaseOperations.ExecuteDataTable_My(query);
+                
                 if (dt.Rows.Count > 0)
                 {
                     sum = dt.Compute("sum(amount)", "").ToString();
                     col_location = dt.Columns.Count - 2;
 
                     DataRow row1 = dt.NewRow();
-                    row1["Staff number"] = "-";
+                    //row1["Staff number"] = "-";
+                    row1["Student Number"] = "-";
                     row1["serialnumber"] = "-";
                     row1["department"] = "-";
                     row1["amount"] = 0;
                     dt.Rows.Add(row1);
 
                     DataRow row2 = dt.NewRow();
-                    row2["Staff number"] = "-";
+                    //row2["Staff number"] = "-";
+                    row1["Student Number"] = "-";
                     row2["serialnumber"] = "-";
                     row2["department"] = "-";
                     row2[col_location] = "Grand Total";
@@ -155,6 +160,26 @@ namespace SmartCanteen
             cmdsave.Enabled = false;
             cbo_mealtime.Enabled = false;
             cbo_mealtype.Enabled = false;
+
+            DataTable groupItemsHeader = new DataTable();
+            groupItemsHeader.Columns.Add("ColHeader", typeof(string));
+
+            //DataRow itemsRow = groupItemsHeader.NewRow();
+            //itemsRow["ColHeader"] = "Staffnumber";
+            //groupItemsHeader.Rows.Add(itemsRow);
+
+            DataRow itemsRow = groupItemsHeader.NewRow();
+            itemsRow["ColHeader"] = "Student Number";
+            groupItemsHeader.Rows.Add(itemsRow);
+
+            itemsRow = groupItemsHeader.NewRow();
+            itemsRow["ColHeader"] = "Department";
+            groupItemsHeader.Rows.Add(itemsRow);
+
+            cmbgtype.DataSource = groupItemsHeader;
+            cmbgtype.ValueMember = "ColHeader";
+            cmbgtype.DisplayMember = "ColHeader";
+            cmbgtype.SelectedIndex = -1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -214,19 +239,33 @@ namespace SmartCanteen
         {
             System.Data.DataTable count = new System.Data.DataTable("count");
 
-            DataColumn c = new DataColumn("No.", typeof(int));
-            c.AutoIncrement = true;
-            c.AutoIncrementSeed = 1;
-            c.AutoIncrementStep = 1;
+            DataColumn c = new DataColumn("No.", typeof(int))
+            {
+                AutoIncrement = true,
+                AutoIncrementSeed = 1,
+                AutoIncrementStep = 1
+            };
             count.Columns.Add(c);
 
             string sec_query = " date(time) as 'Date',time(time) as 'Time',staffnumber as 'Staff Number',UCASE(card_name) as 'Staff Name',UCASE(Department) as Department,serialnumber,count(*) as 'Meal Count', count(*) * Amount as 'Amount'";
             string cons = " time >= '" + startdate.Value.Date.ToString("yyyy-MM-dd") + " 00:00:00" + "'" + " and time <=' " + enddate.Value.Date.ToString("yyyy-MM-dd") + " 23:59:00" + "'";
             string grp = "";
             string gname = "";
+            
             List<string> vf = new List<string>();
 
             cmbgtype.Invoke(new MethodInvoker(delegate { gname = cmbgtype.Text; }));
+            groupingName = gname;
+
+            if (gname.ToLower().Contains("student") || gname.ToLower().Contains("staff"))
+            {
+                gname = "staffnumber";
+            }
+            else
+            {
+                gname = gname.ToLower();
+            }
+
             grp = " group by " + gname + "";
             
             string cond = "";
@@ -296,6 +335,9 @@ namespace SmartCanteen
                         count.Columns.Remove("time");
                         count.Columns.Remove("Staff Number");
                         count.Columns.Remove("Staff Name");
+                        //count.Columns.Remove("Student Number");
+                        //count.Columns.Remove("Student Name");
+
                         count.Columns.Remove("serialnumber");
 
                         col_location = count.Columns.Count - 3;
@@ -319,12 +361,14 @@ namespace SmartCanteen
 
                         DataRow row3 = count.NewRow();
                         row3["Staff number"] = "-";
+                        //row3["Student number"] = "-";
                         row3["serialnumber"] = "-";
                         row3["Amount"] = 0;
                         count.Rows.Add(row3);
 
                         DataRow row4 = count.NewRow();
                         row4["Staff number"] = "-";
+                        //row3["Student number"] = "-";
                         row4["serialnumber"] = "-";
                         row4[col_location] = "Grand Total";
                         row4[count.Columns.Count - 1] = sum;
@@ -423,20 +467,31 @@ namespace SmartCanteen
 
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            toolStripProgressBar1.Value = 100;
-                     
-            dgview.DataSource = dt;
-            //modifydgview(dgview);
-            writetxt.modifydgview(dgview, col_location);
-            dgview.Columns["Amount"].DefaultCellStyle.Format = "c";
-            dgview.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             try
             {
+
+                toolStripProgressBar1.Value = 100;
+
+                dgview.DataSource = dt;
+                //modifydgview(dgview);
+                writetxt.modifydgview(dgview, col_location);
+                dgview.Columns["Amount"].DefaultCellStyle.Format = "c";
+                dgview.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
                 if (dt.Rows.Count > 0)
                 {
                     int count = dt.Rows.Count - 2;
 
+                    string _number = string.Empty;
+                    string _name = string.Empty;
+
+                    if (groupingName.ToLower().Contains("student"))
+                    {
+                        dgview.Columns["Staff Number"].HeaderText = "Student Number";
+                        dgview.Columns["Staff Name"].HeaderText = "Student Name";
+                    }
+                   
                     double totals = (double)dt.Compute("sum(Amount)", "");
                     string tots = string.Format("{0:KSHS  #,##0.00}", sum);
                     txttotal.ForeColor = Color.Red;
@@ -450,7 +505,7 @@ namespace SmartCanteen
                     label4.Text = "Count :=0";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

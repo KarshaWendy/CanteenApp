@@ -137,7 +137,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(895, 149);
+            this.button1.Location = new System.Drawing.Point(911, 137);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 35);
             this.button1.TabIndex = 11;
@@ -156,9 +156,9 @@
             this.toolStripProgressBar1,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 446);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 522);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(997, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1031, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -210,16 +210,13 @@
             this.dgview.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgview.RowHeadersVisible = false;
             this.dgview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgview.Size = new System.Drawing.Size(849, 294);
+            this.dgview.Size = new System.Drawing.Size(883, 370);
             this.dgview.TabIndex = 15;
             // 
             // cmbgtype
             // 
             this.cmbgtype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbgtype.FormattingEnabled = true;
-            this.cmbgtype.Items.AddRange(new object[] {
-            "Staffnumber",
-            "department"});
             this.cmbgtype.Location = new System.Drawing.Point(459, 87);
             this.cmbgtype.Name = "cmbgtype";
             this.cmbgtype.Size = new System.Drawing.Size(162, 21);
@@ -230,7 +227,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(892, 383);
+            this.label3.Location = new System.Drawing.Point(908, 383);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 16);
             this.label3.TabIndex = 19;
@@ -240,18 +237,17 @@
             // 
             this.txttotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txttotal.ForeColor = System.Drawing.Color.Red;
-            this.txttotal.Location = new System.Drawing.Point(877, 414);
+            this.txttotal.Location = new System.Drawing.Point(911, 414);
             this.txttotal.Name = "txttotal";
-            this.txttotal.Size = new System.Drawing.Size(120, 20);
+            this.txttotal.Size = new System.Drawing.Size(108, 20);
             this.txttotal.TabIndex = 20;
-            this.txttotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(892, 299);
+            this.label4.Location = new System.Drawing.Point(908, 299);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 16);
             this.label4.TabIndex = 21;
@@ -260,7 +256,7 @@
             // cmdsave
             // 
             this.cmdsave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdsave.Location = new System.Drawing.Point(895, 213);
+            this.cmdsave.Location = new System.Drawing.Point(911, 201);
             this.cmdsave.Name = "cmdsave";
             this.cmdsave.Size = new System.Drawing.Size(87, 29);
             this.cmdsave.TabIndex = 22;
@@ -318,7 +314,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 468);
+            this.ClientSize = new System.Drawing.Size(1031, 544);
             this.Controls.Add(this.cbo_mealtype);
             this.Controls.Add(this.chk_mealtype);
             this.Controls.Add(this.cbo_mealtime);

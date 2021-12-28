@@ -10,7 +10,7 @@ using System.Collections;
 //using AxMEDISMARTLib;
 using System.Reflection;
 using System.IO;
-using Smart.Data.Xml;
+//using Smart.Data.Xml;
 using SmartCanteen;
 using System.Globalization;
 using Microsoft.VisualBasic;
@@ -18,23 +18,25 @@ using System.Security.Cryptography;
 using OTI.SmartLink.RETMsgMaker;
 using SMART.DATA.V1;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace CanteenDaily
 {
     public partial class Form1 : Form
     {
-        public XmlReaderWriterc Xml_reader = new XmlReaderWriterc();
-        public string CardDatabase = "";
-        public string HostServer = "";
-        public string gadmin = "";
-        public string guest = "";
-        public int Dbport = 3306;
+        //public XmlReaderWriterc Xml_reader = new XmlReaderWriterc();
+        //public string CardDatabase = "";
+        //public string HostServer = "";
+        //public string gadmin = "";
+        //public string guest = "";
+        //public int Dbport = 3306;
         string type_meal = "";
-        public string UserName;
+        //public string UserName;
         DataSet ds = new DataSet();
         public DataTable price_dt;
-        int baudRate;
-        short portNumber;
+        //int baudRate;
+        //short portNumber;
 
         CardReader cardread = new CardReader();
         //AxMedismart readcard = new AxMedismart();
@@ -42,25 +44,25 @@ namespace CanteenDaily
         public Form1()
         {
             InitializeComponent();
-            string FilePath = Application.StartupPath + "\\Application\\smisconfigSmart.xml";
+            //string FilePath = Application.StartupPath + "\\Application\\smisconfigSmart.xml";
 
-            if (File.Exists(FilePath))
-            {
-                DataSet configs_ds = new DataSet();
-                configs_ds.ReadXml(FilePath);
+            //if (File.Exists(FilePath))
+            //{
+                //DataSet configs_ds = new DataSet();
+                //configs_ds.ReadXml(FilePath);
 
-                HostServer = configs_ds.Tables[0].Rows[0]["Server"].ToString();
-                int.TryParse(configs_ds.Tables[0].Rows[0]["port"].ToString(), out Dbport);
-                short.TryParse(configs_ds.Tables[0].Rows[0]["readerPort"].ToString(), out portNumber);
-                int.TryParse(configs_ds.Tables[0].Rows[0]["readerBaud"].ToString(), out baudRate);
-                CardDatabase = configs_ds.Tables[0].Rows[0]["db"].ToString();
+                //HostServer = configs_ds.Tables[0].Rows[0]["Server"].ToString();
+                //int.TryParse(configs_ds.Tables[0].Rows[0]["port"].ToString(), out Dbport);
+                //short.TryParse(configs_ds.Tables[0].Rows[0]["readerPort"].ToString(), out portNumber);
+                //int.TryParse(configs_ds.Tables[0].Rows[0]["readerBaud"].ToString(), out baudRate);
+                //CardDatabase = configs_ds.Tables[0].Rows[0]["db"].ToString();
 
                 loaddetails();
-            }
-            else
-            {
-                MessageBox.Show("Configuration Load Error.\r\nConfiguration file missing", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Configuration Load Error.\r\nConfiguration file missing", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -73,7 +75,7 @@ namespace CanteenDaily
             grplogger.Enabled = false;
             grplogger.Visible = false;
             ReadCard.Enabled = false;
-            UserName = "";
+            //UserName = "";
         }        
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,63 +85,62 @@ namespace CanteenDaily
 
         private void loaddetails()
         {
-            gadmin = "";
-            guest = "";
+            //gadmin = "";
+            //guest = "";
             // read xml then proceed login
             toolStripStatusLabel3.Text = "    ";
 
+            //try
+            //{
+            //string connstring = "server=" + HostServer + ";user id=root; password=smart123; database=smartcafet; port=" + Dbport + ";";
+
+            // GlobalValues._MySqlConnection = connstring;
+
+            //if (DataBaseOperations.CanConnect_My())
+            //{
+           
+           
+            //UserName = guest;
+            //globalparams.user_name = UserName;
+            grplogger.Enabled = true;
+            grplogger.Visible = true;
+            mnuCanteen.Enabled = true;
+            mnuCanteen.Visible = true;
+           
+            Panellogin.Enabled = true;
+            Panellogin.Visible = true;
+
+            Globalparams.log_state = 1;
+
+            ParametersGlobal.DepartmentRightList = deprightbll.All();
+            ParametersGlobal.DepartmentList = departmentbll.All();
+            ParametersGlobal.PriceList = pricelist.All();
+
             try
             {
-                string connstring = "server=" + HostServer + ";user id=root; password=smart123; database=smartcafet; port=" + Dbport + ";";
+                cardread = new CardReader();
 
-                GlobalValues._MySqlConnection = connstring;
+                cardread.Initialize(ParametersGlobal.portNumber, ParametersGlobal.baudRate);
 
-                if (DataBaseOperations.CanConnect_My())
-                {
-                    // string st = cmd_reader.getcardserial(portNumber, baudRate, 1)[1].ToString();
-
-                    toolStripStatusLabel3.Text = "Database Connected,   logged in as : " + guest;
-                    UserName = guest;
-                    globalparams.user_name = UserName;
-                    grplogger.Enabled = true;
-                    grplogger.Visible = true;
-                    mnuCanteen.Enabled = true;
-                    mnuCanteen.Visible = true;
-
-                    string username = "logged in as :";
-                    lbluser.Text = " ";
-                    lbluser.Text = username + " " + guest;
-                    toolStripStatusLabel1.Text = "Card Reader : Connected";
-
-                    Panellogin.Enabled = true;
-                    Panellogin.Visible = true;
-
-                    globalparams.log_state = 1;
-
-                    ParametersGlobal.DepartmentRightList = deprightbll.All();
-                    ParametersGlobal.DepartmentList = departmentbll.All();
-                    ParametersGlobal.PriceList = pricelist.All();
-                    
-                    try
-                    {
-                        cardread = new CardReader();
-                        
-                        cardread.Initialize(portNumber, baudRate);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message + "\n" + ex.InnerException, "Something went wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    Application.Exit();                   
-                }
+                toolStripStatusLabel1.Text = "Card Reader : Connected";
             }
             catch (Exception ex)
             {
+                toolStripStatusLabel1.Text = "Card Reader : Not Connected";
                 MessageBox.Show(ex.Message + "\n" + ex.InnerException, "Something went wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            //}
+            //else
+            //{
+            //    Application.Exit();                   
+            //}
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message + "\n" + ex.InnerException, "Something went wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    //this.Close();
+            //    Application.Exit();
+            //}
         }
 
         void Login()
@@ -165,22 +166,30 @@ namespace CanteenDaily
                     Panellogin.Visible = false;
 
                     int group_id = Convert.ToInt16(dt.Rows[0]["fk_userg_id"].ToString());
-                    globalparams.hold_p = dt.Rows[0]["password"].ToString();
+                    Globalparams.hold_p = dt.Rows[0]["password"].ToString();
+                    //globalparams.hold_p = dt.Rows[0]["password"].ToString();
 
                     ParametersGlobal.Rights_formTable = DataBaseOperations.ExecuteDataTable_My("select Module_Name,tm.Module_ID,Module_Description from ta_module_permissions tmp inner join ta_module tm on tmp.Module_ID = tm.Module_ID where Group_ID=" + group_id);
                     
                     if (ParametersGlobal.AccessForm("MDI HOME"))
                     {
-                        globalparams.rights_states = 1;
+                        Globalparams.rights_states = 1;
                         mnuCanteen.Enabled = true;
 
+                        cmd_teaRun.Visible = true;
+                        cmd_startRun.Visible = true;
+
+                        ParametersGlobal.UserName = txtusername.Text.Trim();
+
+                        lbluser.Text = "logged in as : " + dt.Rows[0]["Real_Names"].ToString();
+                        toolStripStatusLabel3.Text = "Database Connected,   logged in as : " + dt.Rows[0]["Real_Names"].ToString();
                         //Load the departmental details i.e department food privileges and prices
                         bg_dowork.RunWorkerAsync();
                     }
                     else
                     {
                         mnuCanteen.Enabled = false;
-                        globalparams.rights_states = 0;
+                        Globalparams.rights_states = 0;
                         MessageBox.Show("You dont have enough Rights assigned to you. \r\n Consult"
                             + " your Supervisor for the neccessary rights.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
@@ -232,7 +241,7 @@ namespace CanteenDaily
                     string dep = employeeDetail.Department;
 
                     string dater = System.DateTime.Now.ToString();
-                    string CardConn = CardDatabase + ".dailyfeeds";
+                    //string CardConn = CardDatabase + ".dailyfeeds";
 
                     //Confirm whether the department is allowed to access meals/teal
 
@@ -297,6 +306,131 @@ namespace CanteenDaily
                 MessageBox.Show("Place card on reader and press F1");
             }
             cardserial = "";
+        }
+
+        public void punch_cards(string ml_type, bool unAttended)
+        {
+            try
+            {
+                string cardserial = cardread.GetCardSerial();
+
+                if (!string.IsNullOrEmpty(cardserial))
+                {
+                    Employee employeeDetail = empbll.FetchMember_BySerial(cardserial);
+
+                    // this checks if the membercard had been issued
+                    if (employeeDetail != null)
+                    {
+                        string dep = employeeDetail.Department;
+
+                        string dater = System.DateTime.Now.ToString();
+                        //string CardConn = CardDatabase + ".dailyfeeds";
+
+                        //Confirm whether the department is allowed to access meals/teal
+
+                        if (ParametersGlobal.CheckDepartmentStatus(dep, type_meal))
+                        {
+                            var pricelist = ParametersGlobal.PriceList.FirstOrDefault(c => c.Name == type_meal);
+
+                            DailyFeed feed = new DailyFeed()
+                            {
+                                Amount = pricelist.Amount,
+                                CardName = employeeDetail.StaffName,
+                                Department = employeeDetail.Department,
+                                MealType = type_meal,
+                                SerialNumber = employeeDetail.SerialNumber,
+                                StaffNumber = employeeDetail.StaffNumber
+                            };
+
+                            if (type_meal == "TEA")
+                            {
+                                //feedbll.TeaMeal(feed);
+                                TeaMeal(feed, unAttended);
+                            }
+                            if (type_meal == "FOOD")
+                            {
+                                if (feedbll.CheckIFAlreadyFed(feed))
+                                {
+                                    if (unAttended)
+                                    {
+                                        DisplayMessage("The owner of this card has already \naccesed a meal");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("The owner of this card has already \naccesed a meal", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+                                }
+                                else
+                                {
+                                    // check if the person is meant to eat now
+
+                                    if (feedbll.AllowedToEatNow(employeeDetail))
+                                    {
+                                        feedbll.AddFeed(feed);
+
+                                        if (unAttended)
+                                        {
+                                            DisplayMessage("Give a Meal Voucher");
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Give a Meal Voucher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (unAttended)
+                                        {
+                                            DisplayMessage("This card is not allowed to eat now come later");
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("This card is not allowed to eat now come later", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (unAttended)
+                            {
+                                DisplayMessage("The member belongs to the " + dep + " department \r\nwhich is not allowed to access " + type_meal);
+                            }
+                            else
+                            {
+                                MessageBox.Show("The member belongs to the " + dep + " department \r\nwhich is not allowed to access " + type_meal, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (unAttended)
+                        {
+                            DisplayMessage("This card is not allowed to access meals");
+                        }
+                        else
+                        {
+                            MessageBox.Show("This card is not allowed to access meals", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+
+                cardserial = string.Empty;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void DisplayMessage(string message)
+        {
+            frm_display display = new frm_display();
+            display.displayMessage = message;
+            display.Start(message);
+            System.Threading.Thread.Sleep((int)TimeSpan.FromSeconds(2).TotalMilliseconds);
+            display.Stop();
         }
 
         private void issueMealCardsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -391,7 +525,7 @@ namespace CanteenDaily
                 string conds = "";
 
                 txtcardserial.Text = cardserial;
-                string Cardsdata = CardDatabase + ".employees";
+                //string Cardsdata = CardDatabase + ".employees";
 
                 Boolean Exists = false;
 
@@ -400,7 +534,7 @@ namespace CanteenDaily
 
                 string _cardCheck = "select * from employees where " + conds;
 
-                DataTable _cardCheck_dt = globalparams.GetDataTable(_cardCheck);
+                DataTable _cardCheck_dt = Globalparams.GetDataTable(_cardCheck);
 
                 if (_cardCheck_dt.Rows.Count > 0)
                 {
@@ -499,7 +633,7 @@ namespace CanteenDaily
                     StartTime = Convert.ToDateTime(starttime_str),
                     Status = 1,
                     EndTime = Convert.ToDateTime(entimestr),
-                    Issuer = UserName
+                    Issuer = ParametersGlobal.UserName
                 };
 
                 if (employee.StartTime == employee.EndTime)
@@ -592,8 +726,6 @@ namespace CanteenDaily
         {
             if (ParametersGlobal.AccessForm("Tea Vouchers"))
             {
-                //GetDepartments();
-
                 type_meal = "TEA";
                 
                 try
@@ -702,101 +834,307 @@ namespace CanteenDaily
             }
         }
 
-       
-
-    }
-
-    //public class cardreader
-    //{
-    //    // AxMedismart readcard = new AxMedismart();
-    //    public string state, cardserial;
-    //    public cardreader() { }
-    //    public List<string> needed = new List<string>();
-
-    //    CardReader cardread = new CardReader();
-
-    //    public List<string> getcardserial(short nPort, int IBaud, int appState)
-    //    {
-    //        try
-    //        {
-    //            cardread.Initialize(nPort, IBaud);
-
-
-    //            if (appState == 1)
-    //            {
-    //                state = "Card Reader is Not Connected :";
-    //            }
-    //            else
-    //            {
-    //                state = "Card Reader is Not Connected :";
-    //                MessageBox.Show("The card reader is not connected.\r\nPlease connect the reader first.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    //            }
-
-    //            readcard.ReadBioCard();
-    //            cardserial = readcard.GetCardSerialNumber();
-
-    //            readcard.ReadFileA1();
-    //            int retCounter = readcard.RevisionCount;
-
-    //            needed.Add(cardserial);
-    //            needed.Add(state);
-    //            needed.Add(retCounter.ToString());
-
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            state = "Card Reader Connected :";
-    //            MessageBox.Show(ex.Message + ex.InnerException + ex.StackTrace.ToString());
-    //        }
-
-    //        return needed;
-
-    //    }
-
-    //}
-
-    internal sealed class globalparams
-    {
-        public static string user_name = "";
-        public static int log_state;
-        public static int _applicationState;
-        public static int newuserid;
-        public static int newdeptid;
-        public static int newusergroup_id;
-        public static int user_id;
-        public static int rights_states;
-        public static string hold_p;
-
-        public static void assignMDI(ref Object hrmops)
+        private void cmd_startRun_Click(object sender, EventArgs e)
         {
-            Form frmchange = new Form();
-            frmchange = (Form)hrmops;
+            cmd_teaRun.Enabled = false;
+            mnuCanteen.Enabled = false;
+            KeepCheckingForCard = !KeepCheckingForCard;
 
-            foreach (Form frm in Application.OpenForms)
+            if (KeepCheckingForCard == true)
             {
-                if (frm.IsMdiContainer)
+                cmd_startRun.Text = "Stop Food Run";
+            }
+            else
+            {
+                cmd_teaRun.Enabled = true;
+                mnuCanteen.Enabled = true;
+
+                cmd_startRun.Text = "Start Food Run";
+            }
+
+            Task.Factory.StartNew(() =>
+             {
+                 while (KeepCheckingForCard)
+                 {
+                     RunFood();
+
+                     Thread.Sleep((int)TimeSpan.FromMilliseconds(100).TotalMilliseconds);
+                 }
+             });
+        }
+
+        void RunFood()
+        {
+            type_meal = "FOOD";
+
+            punch_cards(type_meal, true);
+        }
+
+        void RunTea()
+        {
+            type_meal = "TEA";
+
+            punch_cards(type_meal, true);
+        }
+
+        private void cmd_teaRun_Click(object sender, EventArgs e)
+        {
+            cmd_startRun.Enabled = false;
+            mnuCanteen.Enabled = false;
+
+            KeepCheckingForCard = !KeepCheckingForCard;
+
+            if (KeepCheckingForCard == true)
+            {
+                cmd_teaRun.Text = "Stop Tea Run";
+            }
+            else
+            {
+                cmd_startRun.Enabled = true;
+                mnuCanteen.Enabled = true;
+
+                cmd_teaRun.Text = "Start Tea Run";
+            }
+
+            Task.Factory.StartNew(() =>
+            {
+                while (KeepCheckingForCard)
                 {
-                    frmchange.MdiParent = frm;
+                    RunTea();
+
+                    Thread.Sleep((int)TimeSpan.FromMilliseconds(100).TotalMilliseconds);
+                }
+            });
+        }
+
+        public bool KeepCheckingForCard { get; set; }
+
+        public void TeaMeal(DailyFeed feed, bool unAttended)
+        {
+            string day_time_tea_st = DateTime.Now.ToShortDateString() + " 06:00:00";
+            string day_time_tea_en = DateTime.Now.ToShortDateString() + " 18:00:00";
+
+            string night_time_tea_st = DateTime.Now.ToShortDateString() + " 19:00:00";
+            string night_time_tea_en = DateTime.Now.ToShortDateString() + " 05:00:00";
+
+            DateTime day_time_en = Convert.ToDateTime(day_time_tea_en);
+            DateTime day_time_st = Convert.ToDateTime(day_time_tea_st);
+
+            DateTime night_st = new DateTime();
+            DateTime night_en = Convert.ToDateTime(night_time_tea_en).AddDays(1);
+
+            DateTime tnow = DateTime.Now;
+
+            if (tnow.Hour < 6)
+            {
+                night_st = Convert.ToDateTime(night_time_tea_st).AddDays(-1);
+            }
+            else
+            {
+                night_st = Convert.ToDateTime(night_time_tea_st);
+            }
+
+            if (((tnow > day_time_st) && (tnow < day_time_en)))
+            {
+                // Day time;
+                int teacount = feedbll.CheckFedCount(feed);
+
+                if (teacount < 1)
+                {
+                    //MessageBox.Show("Not taken tea yet!");
+
+                    feedbll.AddFeed(feed);
+
+                    if (unAttended)
+                    {
+                        DisplayMessage("Give a Tea Voucher");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Give a Tea Voucher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+
+                if (((teacount == 1) || (teacount > 1)))
+                {
+                    if (unAttended)
+                    {
+                        DisplayMessage("Please note that the employee has already used the card today \r\n for TEA !");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please note that the employee has already used the card today \r\n for TEA !", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
+            if (((tnow > night_st) && (tnow < night_en)))
+            {
+                //MessageBox.Show("Night Time");
+                try
+                {
+                    //int teacount = CanteenConnect.eatissue_3(CardDatabase + ".dailyfeeds", serialno, "TEA");
+
+                    //string cons = "SerialNumber='" + serialno + "' and time between '" + night_st.ToString("yyyy-MM-dd HH:mm:ss")
+                    //  + "' and '" + night_en.ToString("yyyy-MM-dd HH:mm:ss") + "' and meal_type like '%tea%'";
+
+                    DataTable dft = feedbll.CheckNightFedCount(feed, night_st, night_en);
+
+                    int howmay = dft.Rows.Count;
+
+                    if (dft.Rows.Count > 0)
+                    {
+                        //MessageBox.Show("Has Used the card before for tea");
+
+                        bool IsItUsed = false;
+
+                        foreach (DataRow dr_row in dft.Rows)
+                        {
+                            //MessageBox.Show("Checking the Rows");
+
+                            string mtype = dr_row["meal_type"].ToString();
+                            string usgaet = dr_row["usage_instance"].ToString();
+
+                            //MessageBox.Show("Meal type is " + mtype + " and Usage is  " + usgaet);
+
+                            if (((usgaet == "Night Time") && (mtype == "TEA")))
+                            {
+                                //MessageBox.Show("Has qualified");
+
+                                if ((howmay == 0) || (howmay == 1))
+                                {
+                                    //MessageBox.Show("After Qualification");
+
+                                    feedbll.AddFeed(feed);
+
+                                    if (unAttended)
+                                    {
+                                        DisplayMessage("Give a Tea Voucher");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Give a Tea Voucher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+
+                                if (howmay == 2)
+                                {
+                                    IsItUsed = true;
+                                }
+                            }
+                            if (((usgaet == "Night Time") && (mtype != "TEA")))
+                            {
+                                //MessageBox.Show("Has qualified");
+
+                                if ((howmay == 0) || (howmay == 1))
+                                {
+                                    //MessageBox.Show("After Qualification");
+
+                                    feedbll.AddFeed(feed);
+
+                                    if (unAttended)
+                                    {
+                                        DisplayMessage("Give a Tea Voucher");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Give a Tea Voucher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+                                if (howmay == 2)
+                                {
+                                    IsItUsed = true;
+                                }
+                            }
+                            if (((usgaet == "Day Time") && (mtype != "TEA")))
+                            {
+                                if ((howmay == 0) || (howmay == 1))
+                                {
+                                    feedbll.AddFeed(feed);
+
+                                    if (unAttended)
+                                    {
+                                        DisplayMessage("Give a Tea Voucher");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Give a Tea Voucher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+                                if (howmay == 2)
+                                {
+                                    if (unAttended)
+                                    {
+                                        DisplayMessage("Please note that the employee has already used the card today \r\n for TEA !");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Please note that the employee has already used the card today \r\n for TEA !", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+                            }
+                            if ((usgaet == "Day Time") && (mtype == "TEA"))
+                            {
+                                if (unAttended)
+                                {
+                                    DisplayMessage("Please note that the employee has already used the card \r\n today for TEA during the day!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Please note that the employee has already used the card \r\n "
+                                        + " today for TEA during the day!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                break;
+                            }
+                        }
+                        if (IsItUsed == true)
+                        {
+                            if (unAttended)
+                            {
+                                DisplayMessage("Please note that the employee has already used the card today \r\n for TEA !");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Please note that the employee has already used the card today \r\n for TEA !", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        feedbll.AddFeed(feed);
+
+                        if (unAttended)
+                        {
+                            DisplayMessage("Give a Tea Voucher");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Give a Tea Voucher", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                if (unAttended)
+                {
+                    DisplayMessage("This card is not allowed to eat now come later");
+                }
+                else
+                {
+                    MessageBox.Show("This card is not allowed to eat now come later", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+
+            DateTime gtd = DateTime.Now;
         }
 
-        
-        public static DataTable GetDataTable(string _query)
-        {
-            DataTable dt = new DataTable();
 
-            try
-            {
-                dt = DataBaseOperations.ExecuteDataTable_My(_query);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-            return dt;
-        }
+
     }
 
 }

@@ -40,11 +40,11 @@ namespace CanteenDaily
             {
 
                 int mxid = Convert.ToInt32((depts_dt.Compute("max(Dept_Id)", null)));
-                globalparams.newdeptid = mxid + 1;
+                Globalparams.newdeptid = mxid + 1;
             }
             else
             {
-                globalparams.newdeptid = 1;
+                Globalparams.newdeptid = 1;
             }
 
             dgviewdeps.DataSource = depts_dt;
@@ -59,11 +59,11 @@ namespace CanteenDaily
             if (users_dt.Rows.Count > 0)
             {
                 int mxid = Convert.ToInt32((users_dt.Compute("max(username_id)", null)));
-                globalparams.newuserid = mxid + 1;
+                Globalparams.newuserid = mxid + 1;
             }
             else
             {
-                globalparams.newuserid = 1;
+                Globalparams.newuserid = 1;
             }
 
             userdgview.DataSource = users_dt;
@@ -88,11 +88,11 @@ namespace CanteenDaily
             if (userg.Rows.Count > 0)
             {
                 int mxid = Convert.ToInt32((userg.Compute("max(Group_Id)", null)));
-                globalparams.newusergroup_id = mxid + 1;
+                Globalparams.newusergroup_id = mxid + 1;
             }
             else
             {
-                globalparams.newusergroup_id = 1;
+                Globalparams.newusergroup_id = 1;
             }
 
             userg.Columns.Remove("Group_Id");
@@ -165,7 +165,7 @@ namespace CanteenDaily
         public void insert_department(TextBox deptname, TextBox deptman)
         {
             string cols = "insert into ta_department (Dept_Name,Dept_Manager,fk_user_id,Dept_Id) values";
-            string vals = "('" + deptname.Text + "','" + deptman.Text + "'," + globalparams.user_id + "," + globalparams.newdeptid + ")";
+            string vals = "('" + deptname.Text + "','" + deptman.Text + "'," + Globalparams.user_id + "," + Globalparams.newdeptid + ")";
 
             DataBaseOperations.ExecuteComm_My(cols + vals);
         }
