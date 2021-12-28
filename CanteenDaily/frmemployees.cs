@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 //using Smart.Data.Xml;
-using SmartCanteen;
-using System.IO;
-using CanteenDaily;
-using Microsoft.VisualBasic;
+//using SmartCanteen;
 using SMART.DATA.V1;
 
 namespace CanteenDaily

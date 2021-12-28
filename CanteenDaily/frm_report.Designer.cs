@@ -1,7 +1,8 @@
-﻿namespace SmartCanteen
+﻿namespace CanteenDaily
 {
-    partial class FrmReports
+    partial class frm_report
     {
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -191,8 +192,8 @@
             // dgview
             // 
             this.dgview.AllowUserToAddRows = false;
-            this.dgview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -335,7 +336,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.enddate);
             this.Controls.Add(this.startdate);
-            this.Name = "FrmReports";
+            this.Name = "frm_feedReport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Canteen Reports";
             this.Load += new System.EventHandler(this.FrmReports_Load);
@@ -375,6 +376,8 @@
         private System.Windows.Forms.ComboBox cbo_mealtime;
         private System.Windows.Forms.CheckBox chk_mealtype;
         private System.Windows.Forms.ComboBox cbo_mealtype;
+
+
+
     }
 }
-

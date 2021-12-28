@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 //using Smart.Data.Xml;
-using SmartCanteen;
+//using SmartCanteen;
 using System.IO;
 using CanteenDaily;
 using SMART.DATA.V1;

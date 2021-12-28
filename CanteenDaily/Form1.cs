@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Collections;
-//using AxMEDISMARTLib;
-using System.Reflection;
-using System.IO;
-//using Smart.Data.Xml;
-using SmartCanteen;
-using System.Globalization;
-using Microsoft.VisualBasic;
-using System.Security.Cryptography;
+//using SmartCanteen;
 using OTI.SmartLink.RETMsgMaker;
 using SMART.DATA.V1;
 using System.Linq;
@@ -460,8 +448,12 @@ namespace CanteenDaily
             {
                 try
                 {
-                    SmartCanteen.FrmReports CardRep = new FrmReports();
-                    CardRep.ShowDialog();
+                    //frm_feedReport CardRep = new frm_feedReport();
+                    //CardRep.ShowDialog();
+
+                    frm_report report = new frm_report();
+                    report.ShowDialog();
+                    
                 }
                 catch (Exception ex)
                 {

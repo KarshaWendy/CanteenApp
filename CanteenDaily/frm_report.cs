@@ -1,34 +1,31 @@
-﻿using System;
+﻿using SMART.DATA.V1;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Data.OleDb;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using CanteenDaily;
-using System.Threading;
-using System.Reflection;
-using SMART.DATA.V1;
 
-namespace SmartCanteen
+namespace CanteenDaily
 {
-    public partial class FrmReports : Form
-    {      
-        public FrmReports()
+    public partial class frm_report : Form
+    {
+        public frm_report()
         {
             InitializeComponent();
         }
 
         System.Data.DataTable dt = new System.Data.DataTable();
         DateTime startDate = DateTime.Now;
-        public string totalsums,sum,gsum;
-        public int total,col_location;
+        private string totalsums, gsum;
+        private int total, col_location;
         string groupingName = string.Empty;
+        private double totalAmount;
 
         private System.Data.DataTable feeds()
-        {            
-            string cons = " time >= '" + startdate.Value.Date.ToString("yyyy-MM-dd") + " 00:00:00" + "'" + " and time <=' " + enddate.Value.Date.ToString("yyyy-MM-dd") + " 23:59:00" + "'";
+        {
             string grp = " group by department";
             string cond = "";
             string depart = "";
@@ -42,7 +39,7 @@ namespace SmartCanteen
             }
             if (chkdates.Checked)
             {
-                vf.Add(cons);
+                vf.Add(" time >= '" + startdate.Value.Date.ToString("yyyy-MM-dd") + " 00:00:00" + "'" + " and time <=' " + enddate.Value.Date.ToString("yyyy-MM-dd") + " 23:59:00" + "'");
             }
             if (chk_mealtime.Checked)
             {
@@ -67,22 +64,24 @@ namespace SmartCanteen
             if (vf.Count > 0)
             {
                 int lo = 1;
-                string dr = "";
+                string dr = string.Empty;
 
-                foreach (string s in vf)
+                foreach (string item in vf)
                 {
-                    if (lo == 1)
+                    if (string.IsNullOrEmpty(cond))
                     {
-                        dr = s;
+                        cond = item;
                     }
                     else
                     {
-                        dr = dr + " and " + s;
+                        cond += " and " + item;
                     }
-
-                    lo++;
                 }
-                cond = dr;
+            }
+
+            if (!string.IsNullOrEmpty(cond))
+            {
+                cond = " where " + cond;
             }
 
             try
@@ -97,22 +96,22 @@ namespace SmartCanteen
 
                 if (chk_groupReport.Checked)
                 {
-                    query = "select distinct department, sum(amount), time from smartcafet.dailyfeeds where " + cond + grp;
+                    query = "select distinct department, sum(amount), time from smartcafet.dailyfeeds " + cond + grp;
                 }
                 else
                 {
                     //query = "select date(time) as 'Date',time(time) as 'Time',staffnumber as 'Staff Number',UCASE(card_name) as 'Staff Name',UCASE(Department) as Department,"
                     //    + " usage_instance as 'Meal Time',meal_type as 'Meal Type', serialnumber, Amount from smartcafet.dailyfeeds where " + cond;
 
-                    query = "select date(time) as 'Date',time(time) as 'Time',staffnumber as 'Student Number',UCASE(card_name) as 'Student Name',UCASE(Department) as Department,"
-                       + " usage_instance as 'Meal Time',meal_type as 'Meal Type', serialnumber, Amount from smartcafet.dailyfeeds where " + cond;
+                    query = "select date(time) as 'Date', time(time) as 'Time', staffnumber as 'Student Number', UCASE(card_name) as 'Student Name', UCASE(Department) as Department,"
+                       + " usage_instance as 'Meal Time', meal_type as 'Meal Type', serialnumber, Amount from smartcafet.dailyfeeds " + cond;
                 }
 
                 dt = DataBaseOperations.ExecuteDataTable_My(query);
-                
+
                 if (dt.Rows.Count > 0)
                 {
-                    sum = dt.Compute("sum(amount)", "").ToString();
+                    totalAmount = double.Parse(dt.Compute("sum(amount)", "").ToString());
                     col_location = dt.Columns.Count - 2;
 
                     DataRow row1 = dt.NewRow();
@@ -129,7 +128,7 @@ namespace SmartCanteen
                     row2["serialnumber"] = "-";
                     row2["department"] = "-";
                     row2[col_location] = "Grand Total";
-                    row2[dt.Columns.Count - 1] = sum;
+                    row2[dt.Columns.Count - 1] = totalAmount;
                     dt.Rows.Add(row2);
                 }
 
@@ -140,8 +139,8 @@ namespace SmartCanteen
             }
 
             return dt;
-        }       
-               
+        }
+
         private void FrmReports_Load(object sender, EventArgs e)
         {
             string query = "select name from smartcafet.department order by name asc";
@@ -155,7 +154,7 @@ namespace SmartCanteen
 
             startdate.Enabled = false;
             enddate.Enabled = false;
-            cbodepart.Enabled = false;            
+            cbodepart.Enabled = false;
             cmbgtype.Enabled = false;
             cmdsave.Enabled = false;
             cbo_mealtime.Enabled = false;
@@ -251,7 +250,7 @@ namespace SmartCanteen
             string cons = " time >= '" + startdate.Value.Date.ToString("yyyy-MM-dd") + " 00:00:00" + "'" + " and time <=' " + enddate.Value.Date.ToString("yyyy-MM-dd") + " 23:59:00" + "'";
             string grp = "";
             string gname = "";
-            
+
             List<string> vf = new List<string>();
 
             cmbgtype.Invoke(new MethodInvoker(delegate { gname = cmbgtype.Text; }));
@@ -267,7 +266,7 @@ namespace SmartCanteen
             }
 
             grp = " group by " + gname + "";
-            
+
             string cond = "";
             string depart = "";
 
@@ -325,7 +324,7 @@ namespace SmartCanteen
             {
                 count = DataBaseOperations.ExecuteDataTable_My("select " + sec_query + " from dailyfeeds " + cond + " " + grp + " ");
 
-                sum = count.Compute("sum(amount)", "").ToString();
+                totalAmount = double.Parse(count.Compute("sum(amount)", "").ToString());
 
                 if (count.Rows.Count > 0)
                 {
@@ -350,7 +349,7 @@ namespace SmartCanteen
                         DataRow row4 = count.NewRow();
                         row4["department"] = "-";
                         row4[col_location] = "Grand Total";
-                        row4[count.Columns.Count - 1] = sum;
+                        row4[count.Columns.Count - 1] = totalAmount;
                         count.Rows.Add(row4);
                     }
                     else
@@ -371,7 +370,7 @@ namespace SmartCanteen
                         //row3["Student number"] = "-";
                         row4["serialnumber"] = "-";
                         row4[col_location] = "Grand Total";
-                        row4[count.Columns.Count - 1] = sum;
+                        row4[count.Columns.Count - 1] = totalAmount;
                         count.Rows.Add(row4);
                     }
                 }
@@ -383,24 +382,30 @@ namespace SmartCanteen
 
             return count;
         }
-               
+
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             toolStripStatusLabel1.Text = "Loading..........   Thanks for your patience";
 
             dt = feeds();
-            
+
             e.Result = dt;
             toolStripStatusLabel1.Text = "Please Wait.....";
-        }        
+        }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             toolStripProgressBar1.Value = 100;
-            dgview.DataSource = dt;            
-            writetxt.modifydgview(dgview, col_location);
+            dgview.DataSource = dt;
+            //writetxt.modifydgview(dgview, col_location);
+            int rowCount = dgview.Rows.Count - 1;
+
+            dgview.Rows[rowCount].DefaultCellStyle.ForeColor = Color.Red;
+            dgview.Rows[rowCount].DefaultCellStyle.Font = new Font("Arial", 10, FontStyle.Bold);
+            dgview.Rows[rowCount].DefaultCellStyle.BackColor = Color.Silver;
+
             dgview.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgview.Columns["Amount"].DefaultCellStyle.Format = "c";
+            dgview.Columns["Amount"].DefaultCellStyle.Format = "#,##.##";
 
             for (int i = 0; i < dgview.Columns.Count - 1; i++)
             {
@@ -415,8 +420,9 @@ namespace SmartCanteen
 
                     label4.Text = "Count : " + count.ToString();
                     //string sum = dt.Compute("sum(amount)", "").ToString();
-                    double totals = (double)dt.Compute("sum(Amount)", "");
-                    string tots = string.Format("{0:KSHS  #,##0.00}", sum);
+                    //double totals = (double)dt.Compute("sum(Amount)", "");
+                    string tots = string.Format("{0:KSHS  #,##.##}", totalAmount);
+                    
                     txttotal.ForeColor = Color.Red;
                     txttotal.Text = tots;
 
@@ -425,8 +431,8 @@ namespace SmartCanteen
                 else
                 {
                     cmdsave.Enabled = false;
-                    label4.Text = "Count :=0";
-                }                
+                    label4.Text = "Count := 0";
+                }
             }
             catch (Exception ex)
             {
@@ -459,8 +465,8 @@ namespace SmartCanteen
         {
             toolStripStatusLabel1.Text = "Loading..........Thanks for your patience";
 
-            dt = membercount();        
-                       
+            dt = membercount();
+
             e.Result = dt;
             toolStripStatusLabel1.Text = "Please Wait.....";
         }
@@ -491,9 +497,9 @@ namespace SmartCanteen
                         dgview.Columns["Staff Number"].HeaderText = "Student Number";
                         dgview.Columns["Staff Name"].HeaderText = "Student Name";
                     }
-                   
-                    double totals = (double)dt.Compute("sum(Amount)", "");
-                    string tots = string.Format("{0:KSHS  #,##0.00}", sum);
+
+                    //double totals = (double)dt.Compute("sum(Amount)", "");
+                    string tots = string.Format("{0:KSHS  #,##0.00}", totalAmount);
                     txttotal.ForeColor = Color.Red;
                     txttotal.Text = tots;
                     label4.Text = "Count : " + count.ToString();
@@ -518,7 +524,7 @@ namespace SmartCanteen
 
         private void chkmem_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         void ExportToExcel()
@@ -526,7 +532,7 @@ namespace SmartCanteen
             try
             {
                 DataTable reportdt = (DataTable)dgview.DataSource;
-                
+
                 if (reportdt.Rows.Count > 0)
                 {
                     string savefilepath = ParametersGlobal.SaveFileLocation();
@@ -543,7 +549,7 @@ namespace SmartCanteen
                         };
 
                         ParametersGlobal.ExportToExcel(reportdt, exportmodel);
-                        
+
                         MessageBox.Show("Report Successfully saved", "Sucess", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -594,8 +600,8 @@ namespace SmartCanteen
                 cmbgtype.Enabled = false;
             }
         }
-                                          
+
+
+
     }
-
 }
-
