@@ -1,0 +1,10 @@
+Administrator	1
+Doctor	2
+Matron	3
+Nurse	4
+Patient	5
+Paramedic	6
+Professor	7
+Sister	8
+Specialist	9
+Staff Nurse	10

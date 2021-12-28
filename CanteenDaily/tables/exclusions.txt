@@ -1,0 +1,8 @@
+excl1	1
+excl2	2
+excl3	3
+excl4	4
+excl5	5
+excl6	6
+excl7	7
+excl8	8

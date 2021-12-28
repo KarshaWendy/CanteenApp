@@ -1,0 +1,17 @@
+Birth-BCG & Polio	1
+6w-DPT,Polio,H Influenza & Hepatitis B	2
+10w-DPT,Polio,H Influenza & Hepatitis B	3
+14w-DPT,Polio,H Influenza & Hepatitis B	4
+9m-Measles	5
+15m-Measles	6
+15m-MMR	7
+18m-DPT,Polio,H Influenza	8
+Pre-School DT & Polio	9
+Hepatitis A	10
+Hepatitis B (Booster)	11
+Tetanus (Booster)	12
+Yellow Fever	13
+Cholera	14
+Typhoid	15
+Influenza	16
+Pneomoccal Conjugate,7-Valent	17

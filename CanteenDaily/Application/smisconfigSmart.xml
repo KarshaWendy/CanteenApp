@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Application_settings>
+  <Database>
+	  <Server>127.0.0.1</Server>
+	  <port>3306</port>
+    <readerPort>3</readerPort>
+    <readerBaud>38400</readerBaud>
+	  <db>smartcafet</db>
+  </Database>
+</Application_settings>

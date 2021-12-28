@@ -1,0 +1,60 @@
+IN-Hosp./Clinic Private	1
+OUT-GP/Spec Cons./Proc's/Tests	2
+OTHER-General Medical Services	3
+ALT Rx-Acupuncture	4
+ALT Rx-Chiropractic	5
+ALT Rx-Homeopathic	6
+ALT Rx-Naturopathic	7
+ALT-Traditional Healing	8
+Appliances-Hearing Aids	9
+Appliances-Surgical General	10
+Appliances-Wheelchairs, etc	11
+Dental-General/Basic	12
+Dental-Specialist General	13
+Dental-Specialist-Surgical Recon/Oral	14
+Funeral-General Benefits	15
+IN-Hosp.Dread Disease	16
+IN-Hosp.Maternity Overall limit	17
+IN-Hosp.Med.Emergency Evac	18
+IN-Hosp.MVA	19
+IN-Hosp.Psyciatric	20
+INS. IN-Hosp.Maternity Overall limit	21
+INS. OUT-Maternity Overall limit	22
+Opthalmology-Appliances	23
+Opthalmology-General	24
+Opthalmology-Lasik/Excimer Laser	25
+OUT-(Capitation) ALL Prim-Care	26
+OUT-(Savings) ALL Prim-Care	27
+OUT-(Savings) GP/Spec & Meds	28
+OUT-Acute Drugs/Materials ONLY	29
+OUT-Chemotherapy	30
+OUT-Chronic Drugs/Materials ONLY	31
+OUT-Infertility Investigation	32
+OUT-Maternity Overall limit	33
+OUT-Pathology	34
+OUT-Radiotherapy	35
+REHAB-Clinical Psychology	36
+REHAB-Occupational Therapy	37
+REHAB-Physiotherapy	38
+REHAB-Speech Therapy	39
+Pool 40	40
+Pool 41	41
+Pool 42	42
+Pool 43	43
+Pool 44	44
+Pool 45	45
+Pool 46	46
+Pool 47	47
+Pool 48	48
+Pool 49	49
+Pool 50	50
+Pool 51	51
+Pool 52	52
+Pool 53	53
+Pool 54	54
+Pool 55	55
+Pool 56	56
+Pool 57	57
+Pool 58	58
+Pool 59	59
+Pool 60	60

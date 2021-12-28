@@ -1,0 +1,48 @@
+﻿=================================
+2009-09-15 User Name :=root
+=================================
+The costings for card belonging to Staff number 23445 
+ has been changed to CDL-WAREHOUSE 
+ as from the 2009-09-01
+=================================
+=================================
+2009-09-15 User Name :=root
+=================================
+The costings for card belonging to Staff number 23445 
+ has been changed from CDL-WAREHOUSE to CDL-PRODUCTION 
+ as from the 2009-09-01
+=================================
+=================================
+2009-09-1512:00 AM User Name :=root
+=================================
+The costings for card belonging to Staff number 23445 
+ has been changed from CDL-PRODUCTION to CDL-WAREHOUSE 
+ as from the 2009-09-15
+=================================
+=================================
+2009-09-15 8:23 AM User Name :=root
+=================================
+The costings for card belonging to Staff number 23445 
+ has been changed from CDL-WAREHOUSE to Cold Drinks 
+ as from the 2009-09-01
+=================================
+=================================
+09-15-2009 08:27 28 AM User Name :=root
+=================================
+The costings for card belonging to Staff number 23445 
+ has been changed from Cold Drinks to Quality Assuarance 
+ as from the 2009-09-01
+=================================
+=================================
+09-15-2009 08:38 40 AM User Name :=root
+=================================
+The costings for card belonging to Staff number 23445 
+ has been changed from Quality Assuarance to Returned 
+ as from the 2009-09-15
+=================================
+=================================
+09-15-2009 08:41 32 AM User Name :=root
+=================================
+Card Number 23445, belonging to 
+TEST deactivated.
+=================================

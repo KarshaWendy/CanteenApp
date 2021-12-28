@@ -1,0 +1,21 @@
+Consultation	1
+Medication	2
+Procedure	3
+Administration Costs	4
+NHIF Encounter	5
+ClinicalTest	6
+S/RoomTest	7
+Biochemistry	8
+Endocrinology	9
+PregnancyTest	10
+AndrologyTest	11
+SerologyTest	12
+CytologyTest	13
+Haematology	14
+Microbiology	15
+UrineAnalysis	16
+XrayLimb	17
+XraySpine	18
+XrayChest	19
+XrayAbdom	20
+UltraSound	21
